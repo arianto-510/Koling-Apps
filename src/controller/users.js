@@ -1,6 +1,10 @@
-const getAllUser = (req, res) => {
+const UserModel = require("../models/users");
+const readAllUser = async (req, res) => {
+  const data = await UserModel.getAllUsers();
+  console.log(data);
   res.json({
     message: "Get All Users",
+    data: data,
   });
 };
 
@@ -10,4 +14,4 @@ const createNewUser = (req, res) => {
   });
 };
 
-module.exports = { getAllUser, createNewUser };
+module.exports = { readAllUser, createNewUser };
