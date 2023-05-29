@@ -6,4 +6,11 @@ const getAllUsers = () => {
   return dbPool.execute(query);
 };
 
-module.exports = { getAllUsers };
+const addNewUser = (body) => {
+  const query = `INSERT INTO users (nik, name, email, phone, pass)
+                  VALUES('${body.nik}', '${body.name}', '${body.email}', 
+                  '${body.phone}', ${body.pass})`;
+  return dbPool.execute(query);
+};
+
+module.exports = { getAllUsers, addNewUser };
