@@ -17,9 +17,9 @@ const readAllUser = async (req, res) => {
 
 const createNewUser = async (req, res) => {
   console.log(req.body);
-  const body = req.body;
+  const { body } = req;
   try {
-    await UserModel.addNewUser();
+    await UserModel.addNewUser(body);
     res.json({
       message: "Create New User Success",
       data: body,

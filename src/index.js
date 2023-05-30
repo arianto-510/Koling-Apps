@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
 const usersRoute = require("./routes/users");
-const dbPool = require("./config/connection");
+const storiesRoute = require("./routes/stories");
+// const dbPool = require("./config/connection");
 
 app.use(express.json());
 app.use("/users", usersRoute);
+app.use("/story", storiesRoute);
 
 app.get("/", (req, res) => {
   res.json({
