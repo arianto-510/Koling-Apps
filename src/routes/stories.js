@@ -1,7 +1,7 @@
 const express = require("express");
-const route = express.Router();
-const storiesController = require("../controller/stories");
+const route = require(express.Router());
+const storyController = require("../controller/stories");
 
-route.get("/", storiesController.readAllStory);
+route.get("/story", storyController.readAllStory);
 
 module.exports = route;

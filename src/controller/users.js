@@ -2,7 +2,6 @@ const UserModel = require("../models/users");
 const readAllUser = async (req, res) => {
   try {
     const [data] = await UserModel.getAllUsers();
-    console.log(data);
     res.json({
       message: "Get All Users",
       data: data,
@@ -16,8 +15,7 @@ const readAllUser = async (req, res) => {
 };
 
 const createNewUser = async (req, res) => {
-  console.log(req.body);
-  const { body } = req;
+  const body = req.body;
   try {
     await UserModel.addNewUser(body);
     res.json({
