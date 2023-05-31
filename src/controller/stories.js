@@ -1,11 +1,11 @@
-const storyModel = require("../models/stories");
+const StoryModel = require("../models/stories");
 const readAllStory = async (req, res) => {
   try {
-    const [data] = await storyModel.getAllStories();
-    console.log(data);
+    const [rows] = await StoryModel.getAllStories;
+    console.log(rows);
     res.json({
       message: "Get All Story",
-      data: data,
+      data: raws,
     });
   } catch (error) {
     res.status(500).json({

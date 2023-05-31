@@ -8,9 +8,9 @@ const getAllUsers = () => {
 };
 
 const addNewUser = (body) => {
-  const idUser = nanoId(15);
+  // const idUser = nanoId(15);
   const query = `INSERT INTO users (id, nik, name, email, phone, pass)
-                  VALUES ('${idUser}','${body.nik}', '${body.name}', '${body.email}', 
+                  VALUES ('${body.id}','${body.nik}', '${body.name}', '${body.email}', 
                   '${body.phone}', ${body.pass})`;
   return dbPool.execute(query);
 };
