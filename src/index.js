@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
-const usersRoute = require("./routes/users");
 const { nanoid } = require("nanoid");
+const route = require("./routes/route")
+
 
 app.use(express.json());
-app.use(usersRoute);
+app.use("/", route)
+
 
 app.get("/", (req, res) => {
   res.json({
