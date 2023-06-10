@@ -1,12 +1,13 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
-const { nanoid } = require("nanoid");
-const route = require("./routes/route")
+const route = require("./routes/route");
 
+const PORT = process.env.PORT;
 
 app.use(express.json());
-app.use("/", route)
-
+app.use("/", route);
+app.use("/assets", express.static("public/images"));
 
 app.get("/", (req, res) => {
   res.json({
@@ -14,8 +15,6 @@ app.get("/", (req, res) => {
   });
 });
 
-app.listen(5000, () => {
-  const id = nanoid(15);
-  console.log(id);
-  console.log("Server run on port 5000");
+app.listen(PORT, () => {
+  console.log(`Server run on port ${PORT}`);
 });

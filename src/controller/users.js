@@ -1,4 +1,5 @@
 const UserModel = require("../models/users");
+const bcrypt = require("bcrypt");
 const readAllUser = async (req, res) => {
   try {
     const [data] = await UserModel.getAllUsers();
@@ -15,14 +16,18 @@ const readAllUser = async (req, res) => {
 };
 
 const createNewUser = async (req, res) => {
-  const body = req.body;
+  const { nik, name, email, phone, pass } = req.body;
+  const salt = 10;
   try {
-    await UserModel.addNewUser(body);
-    res.json({
+    const hashPassword = await bcrypt.hash(pass, salt);
+    const userData = { nik, name, email, phone, pass: hashPassword };
+    await UserModel.addNewUser(userData);
+    res.status(201).json({
       message: "Create New User Success",
-      data: body,
+      data: userData,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       message: "Server Error",
       serverMessage: error,
@@ -30,4 +35,23 @@ const createNewUser = async (req, res) => {
   }
 };
 
-module.exports = { readAllUser, createNewUser };
+const editUser = async (req, res) => {
+  const idUser = req.params;
+  console.log(idUser);
+  const { body } = req;
+  try {
+    await UserModel.updateUser(body, idUser);
+    res.json({
+      message: "Update User Success",
+      id: idUser,
+      data: body,
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: "Server Error",
+      serverMessage: error,
+    });
+  }
+};
+
+module.exports = { readAllUser, createNewUser, editUser };

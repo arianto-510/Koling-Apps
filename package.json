@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/arianto-510/Koling-Apps#readme",
   "dependencies": {
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "mysql2": "^3.3.1",
     "nanoid": "^3.3.6",
