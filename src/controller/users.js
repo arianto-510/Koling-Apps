@@ -36,7 +36,7 @@ const createNewUser = async (req, res) => {
 };
 
 const editUser = async (req, res) => {
-  const idUser = req.params;
+  const { idUser } = req.params;
   console.log(idUser);
   const { body } = req;
   try {
@@ -54,4 +54,29 @@ const editUser = async (req, res) => {
   }
 };
 
-module.exports = { readAllUser, createNewUser, editUser };
+const loginUser = async (req, res) => {
+  const { email, pass } = req.body;
+  try {
+    const [rows] = await UserModel.findUser(email);
+    if (rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const user = rows[0];
+    console.log(user.pass);
+    const isPasswordValid = await bcrypt.compare(pass, user.pass);
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: "Invalid Password" });
+    }
+    res.json({
+      message: "Login Succesfully",
+      body: body,
+    });
+  } catch (error) {
+    res.status({
+      error: "Server error",
+      messageError: error,
+    });
+  }
+};
+
+module.exports = { readAllUser, createNewUser, editUser, loginUser };
