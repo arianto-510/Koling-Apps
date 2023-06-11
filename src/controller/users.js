@@ -1,8 +1,11 @@
 const UserModel = require("../models/users");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
 const readAllUser = async (req, res) => {
   try {
     const [data] = await UserModel.getAllUsers();
+    console.log(data);
     res.json({
       message: "Get All Users",
       data: data,
@@ -56,20 +59,30 @@ const editUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { email, pass } = req.body;
+  const SEKRET_KEY = process.env.SEKRET_KEY;
   try {
     const [rows] = await UserModel.findUser(email);
     if (rows.length === 0) {
       return res.status(404).json({ error: "User not found" });
     }
     const user = rows[0];
-    console.log(user.pass);
     const isPasswordValid = await bcrypt.compare(pass, user.pass);
     if (!isPasswordValid) {
       return res.status(401).json({ error: "Invalid Password" });
     }
-    res.json({
+
+    const token = jwt.sign({ userId: user.id }, SEKRET_KEY, {
+      expiresIn: "1h",
+    });
+
+    res.status(200).json({
       message: "Login Succesfully",
-      body: body,
+      loginResult: {
+        userid: user.id,
+        name: user.name,
+        email: user.email,
+      },
+      token: token,
     });
   } catch (error) {
     res.status({
