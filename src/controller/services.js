@@ -20,7 +20,7 @@ const createNewServices = async (req, res) => {
   console.log(body);
   try {
     await ServiceModel.addNewService(body);
-    res.json({
+    res.status(201).json({
       message: "Create New Services Success",
       data: body,
     });
