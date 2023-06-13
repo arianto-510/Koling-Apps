@@ -40,7 +40,6 @@ const createNewUser = async (req, res) => {
 
 const editUser = async (req, res) => {
   const { idUser } = req.params;
-  console.log(idUser);
   const { body } = req;
   try {
     await UserModel.updateUser(body, idUser);

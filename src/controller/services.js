@@ -3,7 +3,6 @@ const ServiceModel = require("../models/services");
 const readAllService = async (req, res) => {
   try {
     const [data] = await ServiceModel.getAllService();
-    console.log(data);
     res.json({
       data: data,
     });
@@ -32,4 +31,20 @@ const createNewServices = async (req, res) => {
   }
 };
 
-module.exports = { createNewServices, readAllService };
+const searchService = async (req, res) => {
+  const { name } = req.params;
+  try {
+    const [data] = await ServiceModel.findService(name);
+    res.status(200).json({
+      message: "Find The Services",
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Server Error",
+      serverMessage: error,
+    });
+  }
+};
+
+module.exports = { createNewServices, readAllService, searchService };

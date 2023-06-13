@@ -14,5 +14,6 @@ route.post("/story", storyController.createNewStory);
 
 route.get("/services", serviceController.readAllService);
 route.post("/service", serviceController.createNewServices);
+route.get("/service/:name", serviceController.searchService);
 
 module.exports = route;

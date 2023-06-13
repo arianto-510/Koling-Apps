@@ -12,4 +12,9 @@ const addNewService = (body) => {
   return dbPool.execute(query);
 };
 
-module.exports = { addNewService, getAllService };
+const findService = (name) => {
+  const query = `SELECT * FROM services WHERE name LIKE '%${name}%'`;
+  return dbPool.execute(query);
+};
+
+module.exports = { addNewService, getAllService, findService };
