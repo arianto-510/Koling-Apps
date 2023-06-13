@@ -24,5 +24,7 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
+  const date = new Date();
+  console.log(date);
   console.log(`Server run on port ${PORT}`);
 });

@@ -16,7 +16,7 @@ const readAllStory = async (req, res) => {
 };
 
 const createNewStory = async (req, res) => {
-  const body = req.body;
+  const { body } = req;
   try {
     await StoryModel.addNewStory(body);
     res.json({
