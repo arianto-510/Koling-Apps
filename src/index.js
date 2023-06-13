@@ -4,9 +4,11 @@ const app = express();
 const route = require("./routes/route");
 const upload = require("./middleware/multer");
 const { verifyToken } = require("./middleware/validate");
+const cors = require("cors");
 
 const PORT = process.env.PORT;
 
+app.use(cors());
 app.use(express.json());
 app.use("/", route);
 app.use("/assets", express.static("public/images"));
@@ -24,7 +26,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  const date = new Date();
-  console.log(date);
   console.log(`Server run on port ${PORT}`);
 });
