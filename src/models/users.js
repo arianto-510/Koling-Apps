@@ -7,7 +7,7 @@ const getAllUsers = () => {
 };
 
 const addNewUser = (userData) => {
-  const idUser = `user${nanoid(15)}`;
+  const idUser = `${nanoid(15)}`;
   const { nik, name, email, phone, pass } = userData;
   const query = `INSERT INTO users (id, nik, name, email, phone, pass)
                   VALUES ('${idUser}', ?, ?, ?, ?, ?)`;
